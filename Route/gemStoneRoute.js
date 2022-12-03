@@ -1,10 +1,7 @@
 const express = require('express');
 const { createGemStone,getGemStone,updateStone,deleteStone, getAllGemStone, getAllStone} = require('../controllers/gemStoneController');
-const protect = require('../middleWare/authMiddleWare');
-
-
+const protect = require('../middleWare/authMiddleWare')
 const gemStoneRoute = express.Router()
-
 gemStoneRoute.post('/upload',protect,createGemStone)
 gemStoneRoute.get('/getStone',protect,getGemStone)
 gemStoneRoute.get('/stone',getAllGemStone)
