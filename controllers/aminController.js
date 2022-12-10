@@ -36,8 +36,7 @@ const adminLogin=async(req,res)=>{
           }else {
             const token = jwt.sign({id:admin._id},process.env.SECRETE_KEY,{expiresIn:'30d'})
             res.status(200).json({token})
-          }
-               
+          }      
         }
     } catch (error) {
          res.status(400).json(error)
