@@ -3,7 +3,7 @@ const { createGemStone,getGemStone,updateStone,deleteStone, getAllGemStone, getA
 const protect = require('../middleWare/authMiddleWare')
 const gemStoneRoute = express.Router()
 gemStoneRoute.post('/upload',protect,createGemStone)
-gemStoneRoute.get('/getStone',protect,getGemStone)
+gemStoneRoute.get('/getStone',getGemStone)
 gemStoneRoute.get('/stone',getAllGemStone)
 gemStoneRoute.put('/edit/:id',protect,updateStone)
 gemStoneRoute.delete('/delete/:id',protect,deleteStone)
