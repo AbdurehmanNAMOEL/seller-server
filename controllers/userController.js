@@ -2,9 +2,9 @@ const asyncHandler= require('express-async-handler')
 const bt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
-const nodeMailer = require('nodemailer')
+
 const sendEmail = require('../configure/gmail')
-const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding')
+
 const signUp =async(req,res)=>{
    const {name,email,password,confirmPassword,phoneNumber,profileImage} =req.body
    

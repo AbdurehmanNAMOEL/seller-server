@@ -7,7 +7,7 @@ getUser,
 googleSignIn,
 getAllUser,
 newPassword
-} = require('../controllers/sellerController');
+} = require('../controllers/userController');
 const protect = require('../middleWare/authMiddleWare');
 const route = express.Router()
 
