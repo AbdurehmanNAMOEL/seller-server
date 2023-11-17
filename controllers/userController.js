@@ -6,7 +6,7 @@ const User = require('../models/userModel')
 const sendEmail = require('../configure/gmail')
 
 const signUp =async(req,res)=>{
-   const {name,email,password,confirmPassword,phoneNumber,profileImage} =req.body
+   const {name,email,password,confirmPassword,phoneNumber} =req.body
    
     try {
         const user = await User.findOne({email})
