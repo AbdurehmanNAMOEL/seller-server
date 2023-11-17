@@ -9,7 +9,7 @@ const signUp =async(req,res)=>{
    const {name,email,password,confirmPassword,phoneNumber} =req.body
    
     try {
-        const user = await User.findOne({email})
+        const user = await User.find({email})
         if(user){
           res.status(400).json({error:"user already exist"})
         }else
@@ -43,7 +43,7 @@ const signUp =async(req,res)=>{
 
 const signIn = asyncHandler(async(req,res)=>{
     const {email,password} = req.body
-    const user = await User.findOne({email})
+    const user = await User.find({email})
     if(!user){
         res.status(404).json({error:"User doesn't exist"})
     }
