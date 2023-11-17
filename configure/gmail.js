@@ -12,6 +12,7 @@ const transport = nodeMailer.createTransport({
     }
 })
 
+
 const mail_config={
     from:process.env.EMAIL,
     to:userEmail,
