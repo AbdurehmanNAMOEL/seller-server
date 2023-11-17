@@ -3,13 +3,12 @@ const gemStone = require('../models/gemStoneModel')
 
 
 const createGemStone = asyncHandler(async(req,res)=>{
-   const {name,title,weight,desc,phoneNumber,image} = req.body
-   const newGemStone = await gemStone.create({name,title,weight,desc,phoneNumber,image,creatorId:req.userId})
+   const {fullName,mineralName,weight,phoneNumber,image} = req.body
+   const newGemStone = await gemStone.create({fullName,mineralName,weight,phoneNumber,image,creatorId:req.userId})
    res.status(200).json(newGemStone)     
 })
 
-const getGemStone = asyncHandler(async(req,res)=>{
-   
+const getGemStone = asyncHandler(async(req,res)=>{   
    const myStone = await gemStone.find({creatorId:req.userId})
    if(!myStone){
      res.status(401).json({error:"Not found"})
@@ -32,7 +31,7 @@ const getAllGemStone = async(req,res)=>{
 const updateStone =asyncHandler(async(req,res)=>{
     const {id} = req.params
 
-    const{name,title,desc,weight,image,phoneNumber}= req.body
+    const{fullName,mineralName,weight,image,phoneNumber}= req.body
     const stone = await gemStone.findById(id)
     if(!stone){
         res.status(404).json({error:"the stone doesn't exist"})
@@ -41,7 +40,7 @@ const updateStone =asyncHandler(async(req,res)=>{
         res.status(401).json({error:"not authorized"})
     }else{
         const updatedStone = await gemStone.findByIdAndUpdate(id,
-        {name,title,desc,weight,image,phoneNumber},
+        {fullName,mineralName,weight,image,phoneNumber},
         {new:true}    
         )
      

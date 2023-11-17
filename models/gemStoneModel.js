@@ -1,29 +1,24 @@
 const mongoose = require('mongoose')
 
 const gemStoneSchema= mongoose.Schema({
-     name:{
-        type:String,
-    },
-
-    title:{
-        type:String,
+    fullName:{
+       type:String,
         required:[true,'fullName is required']
     },
-     weight:{
+    mineralName:{
+        type:String,
+        required:[true,'mineral is required']
+    },
+    weight:{
         type:String,
         required:[true,'email is required']
     },
-     desc:{
-        type:String,
-        required:[true,'password is required']
-    },
-
+   
     phoneNumber:{
         type:String,
     },
-    
     image:{
-        type:String,
+        type:Array,
         required:[true,'profile image is required']
     },
     creatorId:{
