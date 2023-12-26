@@ -4,23 +4,25 @@ const agentModel = require('../models/agentModel')
 const generateId = require('../utils/id_generator')
 
 const createAgent=async(req,res)=>{
-    const {phoneNumber}=req.body
-    try {
-          const response=await agentModel.findOne({phoneNumber})
-          if(response){
-             res.status(402).json({message:'agent already exist'})
-          }else{
-         
+   const { phoneNumber}=req.body
+   console.log(phoneNumber);
+     try {
+
+        const agentData=await agentModel.findOne({phoneNumber})
+        if(agentData){
+            res.status(402).json('user already exist')
+        }else{
             const newAgent=await agentModel.create({
-             phoneNumber:phoneNumber,
-             agentId:generateId()
+                phoneNumber:phoneNumber,
+                agentId:generateId()
             })
-            const token=jwt.sign({newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
-            res.status(200).json({message:token})
-          }        
-    } catch (error) {
-        res.status(500).json({message:error})
-    }
+            const token=jwt.sign({baskInfo:newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
+           res.status(200).json(token)
+        }
+        
+     } catch (error) {
+        
+     }
 }
 
 
