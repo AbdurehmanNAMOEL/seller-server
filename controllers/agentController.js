@@ -4,18 +4,15 @@ const agentModel = require('../models/agentModel')
 const generateId = require('../utils/id_generator')
 
 const createAgent=async(req,res)=>{
-    const {fullName,phoneNumber,address,agentId,publicId}=req.body
+    const {phoneNumber}=req.body
     try {
-          const response=await agentModel.findOne({agentId})
+          const response=await agentModel.findOne({phoneNumber})
           if(response){
              res.status(402).json({message:'agent already exist'})
           }else{
          
             const newAgent=await agentModel.create({
-             fullName:fullName,
              phoneNumber:phoneNumber,
-             address:address,
-             publicId:publicId,
              agentId:generateId()
             })
             const token=jwt.sign({newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
