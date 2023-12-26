@@ -4,17 +4,15 @@ const agentModel = require('../models/agentModel')
 const generateId = require('../utils/id_generator')
 
 const createAgent=async(req,res)=>{
-    const {fullName,password,phoneNumber,address,agentId,publicId}=req.body
+    const {fullName,phoneNumber,address,agentId,publicId}=req.body
     try {
           const response=await agentModel.findOne({agentId})
           if(response){
              res.status(402).json({message:'agent already exist'})
           }else{
-            const salt=await bt.genSalt(10)
-            const hashedPassword= bt.hash(password,salt)
+         
             const newAgent=await agentModel.create({
              fullName:fullName,
-             password:hashedPassword,
              phoneNumber:phoneNumber,
              address:address,
              publicId:publicId,
