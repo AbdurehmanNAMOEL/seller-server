@@ -4,7 +4,7 @@ const agentModel = require('../models/agentModel')
 const generateId = require('../utils/id_generator')
 
 const createAgent=async(req,res)=>{
-    const {fullName,password,phoneNumber,address,agentId}=req.body
+    const {fullName,password,phoneNumber,address,agentId,publicId}=req.body
     try {
           const response=await agentModel.findOne({agentId})
           if(response){
@@ -17,10 +17,31 @@ const createAgent=async(req,res)=>{
              password:hashedPassword,
              phoneNumber:phoneNumber,
              address:address,
+             publicId:publicId,
              agentId:generateId()
             })
             const token=jwt.sign({newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
             res.status(200).json({message:token})
+          }        
+    } catch (error) {
+        res.status(500).json({message:error})
+    }
+}
+
+
+const updateAgentInfo=async(req,res)=>{
+    const {fullName,publicId,address,agentId}=req.body
+    try {
+          const response=await agentModel.findOne({agentId})
+          if(!response){
+             res.status(402).json({message:"agent doesn't exist"})
+          }else{
+            await agentModel.findByIdAndUpdate(response._id,{
+             fullName:fullName,
+             publicId:publicId,
+             address:address,
+            },{new:true})
+            res.status(200).json({message:'successfully updated'})
           }        
     } catch (error) {
         res.status(500).json({message:error})
@@ -103,5 +124,6 @@ module.exports={
     updatedPassword,
     login,
     getAgentInfo,
-    getAllAgentInfo
+    getAllAgentInfo,
+    updateAgentInfo
 }

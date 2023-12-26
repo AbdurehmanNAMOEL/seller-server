@@ -4,12 +4,14 @@ const {
  login, 
  getAgentInfo, 
  getAllAgentInfo, 
- updatedPassword 
+ updatedPassword, 
+ updateAgentInfo
 } = require('../controllers/agentController')
 
 const agentRoute=express.Router()
 
 agentRoute.post('/create_new_agent',createAgent)
+agentRoute.put('/update_agent_info',updateAgentInfo)
 agentRoute.post('/login',login)
 agentRoute.get('/get_agent_info/:id',getAgentInfo)
 agentRoute.get('/get_all_agents_info',getAllAgentInfo)
