@@ -3,7 +3,7 @@ const { createWallet, getAgentWallet } = require('../controllers/walletControlle
 
 const walletRoute=express.Router()
 
-walletRoute.post('/new_notification',createWallet)
+walletRoute.post('/create+wallet',createWallet)
 walletRoute.get('/get_agent_wallet/:id',getAgentWallet)
 
 module.exports=walletRoute
