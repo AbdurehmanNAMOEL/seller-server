@@ -1,5 +1,6 @@
 const express=require('express')
-const { createTransaction, getAllTransaction, getAgentTransaction } = require('../controllers/transactionController')
+const { createTransaction, getAllTransaction, getAgentTransaction } =
+ require('../controllers/transactionController')
 
 const transactionRoute=express.Router()
 
