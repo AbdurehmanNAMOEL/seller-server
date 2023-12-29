@@ -17,7 +17,8 @@ app.use(express.static('public'));
 app.use(express.json({limit:"30mb", extended:true}))
 app.use(express.urlencoded({limit:"30mb", extended:true}))
 app.use(cors())
-connectDb()
+
+
 
 app.use('/',route)
 app.use('/',gemStoneRoute)
@@ -29,6 +30,7 @@ app.use('/',reportRoute)
 app.use('/',transactionRoute)
 app.use('/',walletRoute)
 
+connectDb()
 const PORT = process.env.PORT  || 5000
 app.listen(PORT,()=>{
     console.log('server is running')
