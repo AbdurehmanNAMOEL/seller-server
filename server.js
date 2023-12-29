@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const connectDb = require('./configure/db')
+const mongoose=require('mongoose')
 const  route  = require('./Route/userRoute')
 const gemStoneRoute = require('./Route/gemStoneRoute')
 const adminRoute= require('./Route/adminRoute')
@@ -29,8 +30,9 @@ app.use('/',notificationRoute)
 app.use('/',reportRoute)
 app.use('/',transactionRoute)
 app.use('/',walletRoute)
-
+mongoose.set('strictQuery', true)
 connectDb()
+  
 const PORT = process.env.PORT  || 5000
 app.listen(PORT,()=>{
     console.log('server is running')
