@@ -2,6 +2,7 @@ const bt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const agentModel = require('../models/agentModel')
 const generateId = require('../utils/id_generator')
+const id=generateId()
 
 const createAgent=async(req,res)=>{
    const { phoneNumber}=req.body
@@ -14,9 +15,9 @@ const createAgent=async(req,res)=>{
         }else{
             const newAgent=await agentModel.create({
                 phoneNumber:phoneNumber,
-                agentId:generateId()
+                agentId:id
             })
-            const token=jwt.sign({baskInfo:newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
+            const token=jwt.sign({newAgent},process.env.SECRETE_KEY,{expiresIn:'30day'})
            res.status(200).json(token)
         }
         
