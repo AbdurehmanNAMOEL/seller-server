@@ -26,11 +26,11 @@ const sellerSchema= mongoose.Schema({
     
     profileImage:{
         type:String,
-        // required:[true,'profile image is required']
+      
     },
     userType:{
         type:String,
-        // required:[true,'profile image is required']
+        
     }
 
 })
