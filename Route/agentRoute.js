@@ -10,7 +10,6 @@ const {
 
 const agentRoute=express.Router()
 
-
 agentRoute.post('/create_new_agent',createAgent)
 agentRoute.put('/update_agent_info',updateAgentInfo)
 agentRoute.post('/login',login)
