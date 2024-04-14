@@ -3,6 +3,7 @@ const { createFeedback, getAllFeedbacks, deleteFeedback } = require('../controll
 
 const feedbackRoute=express.Router()
 
+
 feedbackRoute.post('/newFeedback',createFeedback)
 feedbackRoute.get('/getAllFeedbacks',getAllFeedbacks)
 feedbackRoute.delete('/delete_feedback/:id',deleteFeedback)
