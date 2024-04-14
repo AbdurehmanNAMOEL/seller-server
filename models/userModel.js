@@ -22,6 +22,7 @@ const sellerSchema= mongoose.Schema({
         type:String,
       
     },
+    
     userType:{
         type:String,
         
