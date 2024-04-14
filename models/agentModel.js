@@ -3,7 +3,6 @@ const mongoose=require('mongoose')
 const agentSchema=mongoose.Schema({
     fullName:{
         type:String,
-    
     },
     phoneNumber:{
         type:String,
@@ -12,6 +11,9 @@ const agentSchema=mongoose.Schema({
     address:{
         type:String,
         
+    },
+    profileImage:{
+    type:String,
     },
     publicId:{
         type:String,  
@@ -22,6 +24,15 @@ const agentSchema=mongoose.Schema({
     },
     agentId:{
         type:String,    
+    },
+    status:{
+        type:Boolean,    
+    },
+    numberOfDealClosed:{
+        type:Number
+    },
+    rating:{
+        type:Number
     }
 })
 

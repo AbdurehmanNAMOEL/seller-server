@@ -6,7 +6,8 @@ updatePassword,
 getUser,
 googleSignIn,
 getAllUser,
-newPassword
+newPassword,
+userCount
 } = require('../controllers/userController');
 const protect = require('../middleWare/authMiddleWare');
 const route = express.Router()
@@ -15,6 +16,7 @@ route.post('/signup',signUp)
 route.post('/google',googleSignIn)
 route.post('/signIn',signIn)
 route.get('/allUser',getAllUser)
+route.get('/userCount',userCount)
 route.get('/userExist:id',getAllUser)
 route.get('/getUser',protect,getUser)
 route.post('/update',updatePassword)

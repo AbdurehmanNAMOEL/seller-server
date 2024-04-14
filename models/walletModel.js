@@ -1,12 +1,16 @@
 const mongoose=require('mongoose')
 
 const walletSchema=mongoose.Schema({
-    walletBalance:{
+    agentId:{
         type:String,
+        required:[true,"agent id required"]
+    },
+    walletBalance:{
+        type:Number,
         required:true
     },
     checkOutBalance:{
-        type:String,
+        type:Number,
         required:true
     }
 },{timeStamp:true})

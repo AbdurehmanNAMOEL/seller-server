@@ -1,15 +1,11 @@
 const mongoose=require('mongoose')
 
 const notificationSchema=mongoose.Schema({
-    from:{
+    agentId:{
         type:String,
         required:true
     },
-    name:{
-        type:String,
-        required:true
-    },
-    about:{
+    message:{
         type:String,
         required:true
     }

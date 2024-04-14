@@ -5,39 +5,31 @@ const User = require('../models/userModel')
 
 const sendEmail = require('../configure/gmail')
 
-const signUp =async(req,res)=>{
-   const {name,email,password,confirmPassword,phoneNumber} =req.body
-   
-    try {
-        const user = await User.find({email})
-        if(user){
-          res.status(400).json({error:"user already exist"})
+const signUp =asyncHandler(async(req,res)=>{
+   const {name,email,password,phoneNumber} =req.body
+        const user = await User.findOne({email})
+        console.log(user);
+        if(user!==null){
+          res.status(401).json({error:"user already exist"})
         }else
         { 
-            if(name===''||email===''||password===''||confirmPassword===''||phoneNumber===''){
-            res.status(400).json({error:"please complete filling the form"})
-           } if(!confirmPassword===password){
-            res.status(400).json({error:"password and confirmPassword must be the same"})
-           }else{ 
-              const salt= await bt.genSalt() 
-              const hashedPassword = await bt.hash(password,salt)
-              const newUser = await User.create({ name,
-               email,
+          const salt= await bt.genSalt(10) 
+          const hashedPassword = await bt.hash(password,salt)
+           const newUser = await User.create({ 
+               name:name,
+               email:email,
                password:hashedPassword,
-               confirmPassword:hashedPassword,
-               phoneNumber,
-               profileImage
+               phoneNumber:phoneNumber,
                })
           
-               const token = jwt.sign({id:newUser._id},process.env.SECRETE_KEY,{expiresIn:'1d'})
+               const token = jwt.sign(newUser,process.env.SECRETE_KEY,{expiresIn:'1d'})
                res.status(200).json({token})
             }
-        }
-       } catch (error) {
-        res.status(400).json({error:error.errors})
-       }
+        
+       
         
     }
+    )
 
 
 
@@ -47,7 +39,7 @@ const signIn = asyncHandler(async(req,res)=>{
     if(!user){
         res.status(404).json({error:"User doesn't exist"})
     }
-    if(!(await bt.compare(password,user.password))){
+    else if(!(bt.compareSync(password,user[0]?.password))){
         res.status(401).json({error:"Invalid Password"})
     }else {
         const token = jwt.sign({id:user._id},process.env.SECRETE_KEY,{expiresIn:'30d'})
@@ -97,12 +89,6 @@ const getAllUser=async(req,res)=>{
 }
 
 
-
-const letter='abcdefghijklmnopqrstvxyz'
-
-
-
-
 const updatePassword = asyncHandler(async(req,res)=>{
     const {email} = req.body
     const user = await User.findOne({email})
@@ -141,20 +127,16 @@ const newPassword= async(req,res)=>{
 }
 
 
-// const newPassword = asyncHandler(async(req,res)=>{
-//     const {email,password} = req.body
-//     const user = await User.findOne({email})
-//     if(!user){
-//         res.status(404).json({error:"User doesn't exist"})
-//     }else if(user){ 
-//     const salt= await bt.genSalt() 
-//     const hashedPassword = await bt.hash(password,salt) 
-//     const updatedPassWord = await User.findByIdAndUpdate(user._id,{password:hashedPassword},{new:true})
-//     res.status(200).json(updatedPassWord)
-    
-//     }
-    
-// })
+const userCount = asyncHandler(async(req,res)=>{
+    const user = await User.find().count()
+    if(user===0){
+        res.status(200).json(0)
+    }else {
+        res.status(200).json(user)
+    }
+})
+
+
 
 
 module.exports ={
@@ -164,5 +146,6 @@ updatePassword,
 getUser,
 googleSignIn,
 getAllUser,
-newPassword
+newPassword,
+userCount
 }

@@ -2,20 +2,25 @@ const reportModel = require("../models/reportModel")
 
 const createReport=async(req,res)=>{
  const {
-  agentId,sellerName,sellerPhone,
-  mineralType, mineralWeight,address,
-  mineralImage
+  agentId,sellerName,sellerPhoneNumber,
+  mineralName,weight,
+  type,quality,
+  image,price,numberOfGemstone,uploadedBy
 }=req.body
 
   try {
       await reportModel.create({
         agentId:agentId,
         sellerName:sellerName,
-        sellerPhone:sellerPhone,
-        mineralType:mineralType, 
-        mineralWeight:mineralWeight,
-        address:address,
-        mineralImage:mineralImage
+        sellerPhoneNumber:sellerPhoneNumber,
+        mineralName:mineralName, 
+        weight:weight,
+        image:image,
+        price:price,
+        quality:quality,
+        numberOfGemstone:numberOfGemstone,
+        uploadedBy:uploadedBy,
+        type:type
       })
       res.status(200).json({message:'report successfully sent'})  
   } catch (error) {

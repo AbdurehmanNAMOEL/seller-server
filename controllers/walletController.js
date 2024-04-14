@@ -9,8 +9,8 @@ const createWallet=async(req,res)=>{
             res.status(402).json({message:'User Wallet exist'})
           }else{
             await walletModel.create({
-                walletBalance:walletBalance,
-                checkOutBalance:'500',
+                walletBalance:10000,
+                checkOutBalance:500,
                 agentId:agentId
             })
             res.status(200).json({message:'wallet created'})
@@ -21,7 +21,7 @@ const createWallet=async(req,res)=>{
 }
 
 const updateWallet=async(req,res)=>{
-    const {agentId,walletBalance,checkOutBalance}=req.body
+    const {agentId,walletBalance}=req.body
     try {
           const response=await walletModel.findOne({agentId})
           if(!response){
@@ -29,8 +29,6 @@ const updateWallet=async(req,res)=>{
           }else{
             await walletModel.findByIdAndUpdate(response._id,{
                 walletBalance:walletBalance,
-                checkOutBalance:checkOutBalance,
-                agentId:agentId
             },{new:true})
 
             res.status(200).json({message:'wallet updated'})
@@ -41,9 +39,9 @@ const updateWallet=async(req,res)=>{
 }
 
 const getAgentWallet=async(req,res)=>{
-    const {agentId}=req.params
+    const {id}=req.params
     try {
-          const response=await walletModel.findOne({agentId})
+          const response=await walletModel.findOne({agentId:id})
           if(!response){
             res.status(401).json({message:"Wallet doesn't exist"})
           }else{

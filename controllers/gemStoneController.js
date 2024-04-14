@@ -3,9 +3,22 @@ const gemStone = require('../models/gemStoneModel')
 
 
 const createGemStone = asyncHandler(async(req,res)=>{
-   const {fullName,mineralName,weight,phoneNumber,image} = req.body
-   const newGemStone = await gemStone.create({fullName,mineralName,weight,phoneNumber,image,creatorId:req.userId})
-   res.status(200).json(newGemStone)     
+   const {mineralName,weight,image,price,numberOfMineral,quality,isPolished} = req.body
+   const gemstone=await gemstone.find({mineralName})
+   if(gemStone){
+       res.status(4003).json({message:"Gemstone already exists"})
+   }else{
+     const newGemStone = await gemStone.create({
+       mineralName:mineralName,
+       weight:weight,
+       image:image,
+       price:price,
+       numberOfMineral:numberOfMineral,
+       quality:quality,
+       isPolished:isPolished
+      })
+   res.status(200).json(newGemStone)
+}     
 })
 
 const getGemStone = asyncHandler(async(req,res)=>{   
